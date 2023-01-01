@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
