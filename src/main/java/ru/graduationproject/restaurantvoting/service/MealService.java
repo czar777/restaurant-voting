@@ -1,23 +1,29 @@
 package ru.graduationproject.restaurantvoting.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduationproject.restaurantvoting.model.Meal;
 import ru.graduationproject.restaurantvoting.repository.MealRepository;
+import ru.graduationproject.restaurantvoting.repository.RestaurantRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 @Transactional(readOnly = true)
 public class MealService {
 
     private final MealRepository mealRepository;
+    private final RestaurantRepository restaurantRepository;
 
-    public Optional<Meal> get(int id) {
-        return mealRepository.findById(id);
+    @Autowired
+    public MealService(MealRepository mealRepository, RestaurantRepository restaurantRepository) {
+        this.mealRepository = mealRepository;
+        this.restaurantRepository = restaurantRepository;
+    }
+
+    public Meal get(int id) {
+        return mealRepository.findById(id).get();
     }
 
     public List<Meal> getAll(int restaurantId) {
@@ -29,13 +35,18 @@ public class MealService {
     }
 
     @Transactional
-    public Meal create(Meal meal) {
+    public Meal create(Meal meal, int restaurantId) {
+        meal.setRestaurant(restaurantRepository.findById(restaurantId).get());
         return mealRepository.save(meal);
     }
 
     @Transactional
-    public Meal update(Meal meal) {
-        return mealRepository.save(meal);
+    public void update(Meal meal, int id, int restaurantId) {
+        if (meal.getId() != id) {
+
+        }
+        meal.setRestaurant(restaurantRepository.findById(restaurantId).get());
+        mealRepository.save(meal);
     }
 
     @Transactional

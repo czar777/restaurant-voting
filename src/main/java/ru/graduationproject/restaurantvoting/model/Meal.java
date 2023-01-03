@@ -1,5 +1,6 @@
 package ru.graduationproject.restaurantvoting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -29,5 +30,6 @@ public class Meal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnore
     private Restaurant restaurant;
 }

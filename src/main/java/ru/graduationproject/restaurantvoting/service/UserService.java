@@ -1,6 +1,6 @@
 package ru.graduationproject.restaurantvoting.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduationproject.restaurantvoting.model.User;
@@ -10,11 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 @Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Optional<User> getUser(int id) {
         return userRepository.findById(id);
@@ -30,8 +34,8 @@ public class UserService {
     }
 
     @Transactional
-    public User update(User user) {
-        return userRepository.save(user);
+    public void update(User user) {
+        userRepository.save(user);
     }
 
     @Transactional
