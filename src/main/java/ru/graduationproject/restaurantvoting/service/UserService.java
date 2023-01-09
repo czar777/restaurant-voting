@@ -3,9 +3,12 @@ package ru.graduationproject.restaurantvoting.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduationproject.restaurantvoting.model.Restaurant;
 import ru.graduationproject.restaurantvoting.model.User;
 import ru.graduationproject.restaurantvoting.repository.UserRepository;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final static LocalTime TIME_CHANGE_VOTE = LocalTime.of(11, 00, 00);
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -43,4 +48,19 @@ public class UserService {
     public void delete (int id) {
         userRepository.delete(id);
     }
+
+    @Transactional
+    public void vote(Restaurant restaurant, int id) {
+        User user = get(id);
+        LocalDateTime ldt = LocalDateTime.now();
+
+        if (ldt.toLocalTime().isAfter(TIME_CHANGE_VOTE)) {
+            System.out.println("Голосовать после 11:00 нельзя!");
+            throw new RuntimeException("Голосовать после 11:00 нельзя!");
+        }
+
+        user.setVoiceRestaurant(restaurant);
+        userRepository.save(user);
+    }
+
 }
