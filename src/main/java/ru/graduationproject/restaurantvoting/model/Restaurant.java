@@ -1,5 +1,6 @@
 package ru.graduationproject.restaurantvoting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -25,7 +26,12 @@ public class Restaurant {
     @NotBlank
     private String nameRestaurant;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Meal> meals;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "voiceRestaurant")
+    private List<User> vote;
 }
