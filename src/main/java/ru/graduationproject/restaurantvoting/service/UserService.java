@@ -20,11 +20,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUser(int id) {
-        return userRepository.findById(id);
+    public User get(int id) {
+        return userRepository.findById(id).get();
     }
 
-    public List<User> getAllUser() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
@@ -34,7 +34,8 @@ public class UserService {
     }
 
     @Transactional
-    public void update(User user) {
+    public void update(User user, int id) {
+        user.setId(id);
         userRepository.save(user);
     }
 
