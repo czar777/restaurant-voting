@@ -33,23 +33,23 @@ public class RestaurantController {
         userService.vote(restaurant, 1);
     }
 
-    @GetMapping("/{id}")
-    public Meal get(@PathVariable int id, @PathVariable int restaurantId) {
+    @GetMapping("/meals/{id}")
+    public Meal getMeal(@PathVariable int id, @PathVariable int restaurantId) {
         return mealService.get(id);
     }
 
-    @GetMapping
-    public List<Meal> getAll(@PathVariable int restaurantId) {
+    @GetMapping("/meals")
+    public List<Meal> getAllMeal(@PathVariable int restaurantId) {
         return mealService.getAll(restaurantId);
     }
 
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
+    public Restaurant getRestaurant(@PathVariable int id) {
         return restaurantService.get(id);
     }
 
     @GetMapping()
-    public List<Restaurant> getAll() {
+    public List<Restaurant> getAllRestaurants() {
         return restaurantService.getAll();
     }
 }

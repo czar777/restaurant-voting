@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +30,10 @@ public class User {
     @NotBlank
     private String name;
 
+    @Column(name = "email", nullable = false)
+    @NotBlank
+    private String email;
+
     @Column(name = "password", nullable = false)
     @NotBlank
     private String password;
@@ -40,4 +45,15 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant voiceRestaurant;
+
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Role> roles;
+
 }

@@ -3,19 +3,25 @@ VALUES ('кафе Central Perk '),
        ('Dr. Живаго'),
        ('White Rabbit');
 
-INSERT INTO USERS (name, password, restaurant_id)
-VALUES ( 'Росс Гейлер', 'друзья', 1 ),
-       ( 'Моника Гейлер', 'друзья', 1 ),
-       ( 'Джо Трибиани', 'друзья', 1 ),
-       ( 'Чендлер Бинг', 'друзья', 1 ),
-       ( 'Рейчел Грин', 'друзья', 1 ),
-       ( 'Фиби Буфэ', 'друзья', 1 ),
-       ( 'Давид', 'qwerty', 2 ),
-       ( 'Иван', 'qwerty', 3 );
+INSERT INTO USERS (name, email, password, restaurant_id)
+VALUES ( 'Росс Гейлер', 'rossgeller@gmail.com', '{noop}friends', 1 ),
+       ( 'Моника Гейлер', 'monicageller@gmail.com', '{noop}friends', 1 ),
+       ( 'Джо Трибиани', 'joeytribbiani@gmail.com', '{noop}friends', 1 ),
+       ( 'Чендлер Бинг', 'chandlerbing@gmail.com', '{noop}friends', 1 ),
+       ( 'Рейчел Грин', 'rachelgreen@gmail.com', '{noop}friends', 1 ),
+       ( 'Фиби Буфэ', 'phoebebuffay@gmail.com', '{noop}friends', 1 ),
+       ( 'Давид', 'david@gmail.com' ,'{noop}qwerty', 2 ),
+       ( 'Иван', 'ivan@gmail.com', '{noop}qwerty', 3 );
 
--- INSERT INTO USER_ROLE (ROLE, USER_ID)
--- VALUES ('USER', 1),
---        ('ADMIN', 2);
+INSERT INTO USER_ROLE (ROLE, USER_ID)
+VALUES ('ADMIN', 1),
+       ('USER', 2),
+       ('USER', 3),
+       ('USER', 4),
+       ('USER', 5),
+       ('USER', 6),
+       ('USER', 7),
+       ('USER', 8);
 
 INSERT INTO MEAL (DISH, PRICE, RESTAURANT_ID)
 VALUES ( 'кофе', '2.2', 1 ),
